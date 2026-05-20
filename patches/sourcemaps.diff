@@ -2,10 +2,10 @@ Remove sourcemaps URL
 
 These will not work since we patch VS Code.
 
-Index: code-server/lib/vscode/build/gulpfile.reh.ts
+Index: code-server-docker/lib/vscode/build/gulpfile.reh.ts
 ===================================================================
---- code-server.orig/lib/vscode/build/gulpfile.reh.ts
-+++ code-server/lib/vscode/build/gulpfile.reh.ts
+--- code-server-docker.orig/lib/vscode/build/gulpfile.reh.ts
++++ code-server-docker/lib/vscode/build/gulpfile.reh.ts
 @@ -261,10 +261,15 @@ function packageTask(type: string, platf
  	const destination = path.join(BUILD_ROOT, destinationFolderName);
  
