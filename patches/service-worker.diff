@@ -2,10 +2,10 @@ Add a service worker
 
 To test try installing code-server as a PWA.
 
-Index: code-server/lib/vscode/src/vs/base/common/product.ts
+Index: code-server-docker/lib/vscode/src/vs/base/common/product.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/base/common/product.ts
-+++ code-server/lib/vscode/src/vs/base/common/product.ts
+--- code-server-docker.orig/lib/vscode/src/vs/base/common/product.ts
++++ code-server-docker/lib/vscode/src/vs/base/common/product.ts
 @@ -70,6 +70,10 @@ export interface IProductConfiguration {
  	readonly updateEndpoint?: string
  	readonly logoutEndpoint?: string
@@ -17,10 +17,10 @@ Index: code-server/lib/vscode/src/vs/base/common/product.ts
  
  	readonly version: string;
  	readonly date?: string;
-Index: code-server/lib/vscode/src/vs/workbench/browser/client.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/browser/client.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/browser/client.ts
-+++ code-server/lib/vscode/src/vs/workbench/browser/client.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/browser/client.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/browser/client.ts
 @@ -89,6 +89,10 @@ export class CodeServerClient extends Di
  		if (this.productService.logoutEndpoint) {
  			this.addLogoutCommand(this.productService.logoutEndpoint);
@@ -50,10 +50,10 @@ Index: code-server/lib/vscode/src/vs/workbench/browser/client.ts
 +		}
 +	}
  }
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 @@ -363,6 +363,10 @@ export class WebClientServer {
  			updateEndpoint: !this._environmentService.args['disable-update-check'] ? rootBase + '/update/check' : undefined,
  			logoutEndpoint: this._environmentService.args['auth'] && this._environmentService.args['auth'] !== "none" ? rootBase + '/logout' : undefined,

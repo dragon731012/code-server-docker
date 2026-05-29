@@ -23,10 +23,10 @@ right-click on a folder (not a file) and you should **not** see the
 and appear in the file navigator. When opening a file, the "Show Local" button 
 should **not** appear on the dialog that comes on screen.
 
-Index: code-server/lib/vscode/src/vs/workbench/browser/web.api.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/browser/web.api.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/browser/web.api.ts
-+++ code-server/lib/vscode/src/vs/workbench/browser/web.api.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/browser/web.api.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/browser/web.api.ts
 @@ -312,6 +312,16 @@ export interface IWorkbenchConstructionO
  	 */
  	readonly userDataPath?: string
@@ -44,10 +44,10 @@ Index: code-server/lib/vscode/src/vs/workbench/browser/web.api.ts
  	//#endregion
  
  	//#region Profile options
-Index: code-server/lib/vscode/src/vs/workbench/services/environment/browser/environmentService.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/services/environment/browser/environmentService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/services/environment/browser/environmentService.ts
-+++ code-server/lib/vscode/src/vs/workbench/services/environment/browser/environmentService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/services/environment/browser/environmentService.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/services/environment/browser/environmentService.ts
 @@ -34,6 +34,16 @@ export interface IBrowserWorkbenchEnviro
  	readonly options?: IWorkbenchConstructionOptions;
  
@@ -86,10 +86,10 @@ Index: code-server/lib/vscode/src/vs/workbench/services/environment/browser/envi
  	@memoize
  	get argvResource(): URI { return joinPath(this.userRoamingDataHome, 'argv.json'); }
  
-Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
-+++ code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 @@ -19,6 +19,8 @@ export const serverOptions: OptionDescri
  	/* ----- code-server ----- */
  	'disable-update-check': { type: 'boolean' },
@@ -108,10 +108,10 @@ Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
  
  	/* ----- server setup ----- */
  
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 @@ -389,6 +389,8 @@ export class WebClientServer {
  			serverBasePath: basePath,
  			webviewEndpoint: staticRoute + '/out/vs/workbench/contrib/webview/browser/pre',
@@ -121,10 +121,10 @@ Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
  			_wrapWebWorkerExtHostInIframe,
  			developmentOptions: { enableSmokeTestDriver: this._environmentService.args['enable-smoke-test-driver'] ? true : undefined, logLevel: this._logService.getLevel() },
  			settingsSyncOptions: !this._environmentService.isBuilt && this._environmentService.args['enable-sync'] ? { enabled: true } : undefined,
-Index: code-server/lib/vscode/src/vs/workbench/browser/contextkeys.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/browser/contextkeys.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/browser/contextkeys.ts
-+++ code-server/lib/vscode/src/vs/workbench/browser/contextkeys.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/browser/contextkeys.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/browser/contextkeys.ts
 @@ -6,10 +6,10 @@
  import { Disposable } from '../../base/common/lifecycle.js';
  import { IContextKeyService, IContextKey, setConstant as setConstantContextKey } from '../../platform/contextkey/common/contextkey.js';
@@ -158,10 +158,10 @@ Index: code-server/lib/vscode/src/vs/workbench/browser/contextkeys.ts
  		this.registerListeners();
  	}
  
-Index: code-server/lib/vscode/src/vs/workbench/contrib/files/browser/fileActions.contribution.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/contrib/files/browser/fileActions.contribution.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/contrib/files/browser/fileActions.contribution.ts
-+++ code-server/lib/vscode/src/vs/workbench/contrib/files/browser/fileActions.contribution.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/contrib/files/browser/fileActions.contribution.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/contrib/files/browser/fileActions.contribution.ts
 @@ -20,7 +20,7 @@ import { CLOSE_SAVED_EDITORS_COMMAND_ID,
  import { AutoSaveAfterShortDelayContext } from '../../../services/filesConfiguration/common/filesConfigurationService.js';
  import { WorkbenchListDoubleSelection } from '../../../../platform/list/browser/listService.js';
@@ -203,10 +203,10 @@ Index: code-server/lib/vscode/src/vs/workbench/contrib/files/browser/fileActions
  		// only in web
  		IsWebContext,
  		// only on folders
-Index: code-server/lib/vscode/src/vs/workbench/common/contextkeys.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/common/contextkeys.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/common/contextkeys.ts
-+++ code-server/lib/vscode/src/vs/workbench/common/contextkeys.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/common/contextkeys.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/common/contextkeys.ts
 @@ -40,6 +40,9 @@ export const EmbedderIdentifierContext =
  
  export const InAutomationContext = new RawContextKey<boolean>('inAutomation', false, localize('inAutomation', "Whether VS Code is running under automation/smoke test"));
@@ -217,10 +217,10 @@ Index: code-server/lib/vscode/src/vs/workbench/common/contextkeys.ts
  //#endregion
  
  //#region < --- Window --- >
-Index: code-server/lib/vscode/src/vs/workbench/services/dialogs/browser/simpleFileDialog.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/services/dialogs/browser/simpleFileDialog.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/services/dialogs/browser/simpleFileDialog.ts
-+++ code-server/lib/vscode/src/vs/workbench/services/dialogs/browser/simpleFileDialog.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/services/dialogs/browser/simpleFileDialog.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/services/dialogs/browser/simpleFileDialog.ts
 @@ -18,7 +18,7 @@ import { IModelService } from '../../../
  import { ILanguageService } from '../../../../editor/common/languages/language.js';
  import { getIconClasses } from '../../../../editor/common/services/getIconClasses.js';
@@ -278,10 +278,10 @@ Index: code-server/lib/vscode/src/vs/workbench/services/dialogs/browser/simpleFi
  					}
  				}
  			}
-Index: code-server/lib/vscode/src/vs/workbench/contrib/files/browser/views/explorerViewer.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/contrib/files/browser/views/explorerViewer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/contrib/files/browser/views/explorerViewer.ts
-+++ code-server/lib/vscode/src/vs/workbench/contrib/files/browser/views/explorerViewer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/contrib/files/browser/views/explorerViewer.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/contrib/files/browser/views/explorerViewer.ts
 @@ -65,6 +65,7 @@ import { timeout } from '../../../../../
  import { IFilesConfigurationService } from '../../../../services/filesConfiguration/common/filesConfigurationService.js';
  import { mainWindow } from '../../../../../base/browser/window.js';
@@ -327,10 +327,10 @@ Index: code-server/lib/vscode/src/vs/workbench/contrib/files/browser/views/explo
  				}
  			}
  
-Index: code-server/lib/vscode/src/vs/platform/files/node/diskFileSystemProviderServer.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/files/node/diskFileSystemProviderServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/files/node/diskFileSystemProviderServer.ts
-+++ code-server/lib/vscode/src/vs/platform/files/node/diskFileSystemProviderServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/files/node/diskFileSystemProviderServer.ts
++++ code-server-docker/lib/vscode/src/vs/platform/files/node/diskFileSystemProviderServer.ts
 @@ -99,6 +99,7 @@ export abstract class AbstractDiskFileSy
  
  	private async readFile(uriTransformer: IURITransformer, _resource: UriComponents, opts?: IFileAtomicReadOptions): Promise<VSBuffer> {

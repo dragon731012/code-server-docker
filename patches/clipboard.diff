@@ -1,7 +1,7 @@
-Index: code-server/lib/vscode/src/vs/workbench/api/browser/mainThreadCLICommands.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/api/browser/mainThreadCLICommands.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/api/browser/mainThreadCLICommands.ts
-+++ code-server/lib/vscode/src/vs/workbench/api/browser/mainThreadCLICommands.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/api/browser/mainThreadCLICommands.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/api/browser/mainThreadCLICommands.ts
 @@ -8,6 +8,7 @@ import { isWeb } from '../../../base/com
  import { isString } from '../../../base/common/types.js';
  import { URI, UriComponents } from '../../../base/common/uri.js';
@@ -22,10 +22,10 @@ Index: code-server/lib/vscode/src/vs/workbench/api/browser/mainThreadCLICommands
  class RemoteExtensionManagementCLI extends ExtensionManagementCLI {
  
  	private _location: string | undefined;
-Index: code-server/lib/vscode/src/vs/workbench/api/node/extHostCLIServer.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/api/node/extHostCLIServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/api/node/extHostCLIServer.ts
-+++ code-server/lib/vscode/src/vs/workbench/api/node/extHostCLIServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/api/node/extHostCLIServer.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/api/node/extHostCLIServer.ts
 @@ -44,7 +44,12 @@ export interface ExtensionManagementPipe
  	force?: boolean;
  }
@@ -61,10 +61,10 @@ Index: code-server/lib/vscode/src/vs/workbench/api/node/extHostCLIServer.ts
  	dispose(): void {
  		this._disposed = true;
  		this._server?.close();
-Index: code-server/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
-+++ code-server/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
 @@ -99,7 +99,7 @@ class RemoteTerminalBackend extends Base
  			}
  		}));
@@ -74,10 +74,10 @@ Index: code-server/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTe
  		this._register(this._remoteTerminalChannel.onExecuteCommand(async e => {
  			// Ensure this request for for this window
  			const pty = this._ptys.get(e.persistentProcessId);
-Index: code-server/lib/vscode/src/vs/platform/environment/common/argv.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/environment/common/argv.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/environment/common/argv.ts
-+++ code-server/lib/vscode/src/vs/platform/environment/common/argv.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/environment/common/argv.ts
++++ code-server-docker/lib/vscode/src/vs/platform/environment/common/argv.ts
 @@ -146,6 +146,7 @@ export interface NativeParsedArgs {
  	'disable-chromium-sandbox'?: boolean;
  	sandbox?: boolean;
@@ -86,10 +86,10 @@ Index: code-server/lib/vscode/src/vs/platform/environment/common/argv.ts
  	'unresponsive-sample-interval'?: string;
  	'unresponsive-sample-period'?: string;
  	'enable-rdp-display-tracking'?: boolean;
-Index: code-server/lib/vscode/src/vs/platform/environment/node/argv.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/environment/node/argv.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/environment/node/argv.ts
-+++ code-server/lib/vscode/src/vs/platform/environment/node/argv.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/environment/node/argv.ts
++++ code-server-docker/lib/vscode/src/vs/platform/environment/node/argv.ts
 @@ -115,6 +115,7 @@ export const OPTIONS: OptionDescriptions
  	'user-data-dir': { type: 'string', cat: 'o', args: 'dir', description: localize('userDataDir', "Specifies the directory that user data is kept in. Can be used to open multiple distinct instances of Code.") },
  	'profile': { type: 'string', 'cat': 'o', args: 'profileName', description: localize('profileName', "Opens the provided folder or workspace with the given profile and associates the profile with the workspace. If the profile does not exist, a new empty one is created.") },
@@ -98,10 +98,10 @@ Index: code-server/lib/vscode/src/vs/platform/environment/node/argv.ts
  
  	'extensions-dir': { type: 'string', deprecates: ['extensionHomePath'], cat: 'e', args: 'dir', description: localize('extensionHomePath', "Set the root path for extensions.") },
  	'extensions-download-dir': { type: 'string' },
-Index: code-server/lib/vscode/src/vs/server/node/server.cli.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/server.cli.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/server.cli.ts
-+++ code-server/lib/vscode/src/vs/server/node/server.cli.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/server.cli.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/server.cli.ts
 @@ -77,6 +77,7 @@ const isSupportedForPipe = (optionId: ke
  		case 'verbose':
  		case 'remote':

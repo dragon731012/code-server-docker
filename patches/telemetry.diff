@@ -8,10 +8,10 @@ To test:
 3. Load code-server in browser an do things (i.e. open a file)
 4. Refresh RequestBin and you should see logs
 
-Index: code-server/lib/vscode/src/vs/server/node/serverServices.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/serverServices.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/serverServices.ts
-+++ code-server/lib/vscode/src/vs/server/node/serverServices.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/serverServices.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/serverServices.ts
 @@ -4,6 +4,7 @@
   *--------------------------------------------------------------------------------------------*/
  
@@ -54,10 +54,10 @@ Index: code-server/lib/vscode/src/vs/server/node/serverServices.ts
  			disposables.add(toDisposable(() => oneDsAppender?.flush())); // Ensure the AI appender is disposed so that it flushes remaining data
  		}
  
-Index: code-server/lib/vscode/src/vs/server/node/telemetryClient.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/telemetryClient.ts
 ===================================================================
 --- /dev/null
-+++ code-server/lib/vscode/src/vs/server/node/telemetryClient.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/telemetryClient.ts
 @@ -0,0 +1,71 @@
 +import { AppInsightsCore, IExtendedTelemetryItem, ITelemetryItem } from '@microsoft/1ds-core-js';
 +import * as https from 'https';
@@ -130,10 +130,10 @@ Index: code-server/lib/vscode/src/vs/server/node/telemetryClient.ts
 +		} catch (error) {}
 +	}
 +}
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 @@ -367,6 +367,8 @@ export class WebClientServer {
  				scope: vscodeBase + '/',
  				path: rootBase + '/_static/out/browser/serviceWorker.js',
@@ -143,10 +143,10 @@ Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
  			embedderIdentifier: 'server-distro',
  			extensionsGallery: this._productService.extensionsGallery,
  		};
-Index: code-server/lib/vscode/src/vs/base/common/product.ts
+Index: code-server-docker/lib/vscode/src/vs/base/common/product.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/base/common/product.ts
-+++ code-server/lib/vscode/src/vs/base/common/product.ts
+--- code-server-docker.orig/lib/vscode/src/vs/base/common/product.ts
++++ code-server-docker/lib/vscode/src/vs/base/common/product.ts
 @@ -74,6 +74,7 @@ export interface IProductConfiguration {
  		readonly path: string;
  		readonly scope: string;
@@ -155,10 +155,10 @@ Index: code-server/lib/vscode/src/vs/base/common/product.ts
  
  	readonly version: string;
  	readonly date?: string;
-Index: code-server/lib/vscode/src/vs/platform/product/common/product.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/product/common/product.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/product/common/product.ts
-+++ code-server/lib/vscode/src/vs/platform/product/common/product.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/product/common/product.ts
++++ code-server-docker/lib/vscode/src/vs/platform/product/common/product.ts
 @@ -58,7 +58,8 @@ else if (globalThis._VSCODE_PRODUCT_JSON
  			resourceUrlTemplate: "https://open-vsx.org/vscode/asset/{publisher}/{name}/{version}/Microsoft.VisualStudio.Code.WebResources/{path}",
  			controlUrl: "",
