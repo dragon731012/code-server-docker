@@ -9,10 +9,10 @@ ensures that different browser paths will be unique (for example /workspace1 and
 The easiest way to test is to open files in the same workspace using both / and
 /vscode and make sure they are not interacting with each other.
 
-Index: code-server/lib/vscode/src/vs/workbench/services/storage/browser/storageService.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/services/storage/browser/storageService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/services/storage/browser/storageService.ts
-+++ code-server/lib/vscode/src/vs/workbench/services/storage/browser/storageService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/services/storage/browser/storageService.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/services/storage/browser/storageService.ts
 @@ -18,6 +18,7 @@ import { AbstractStorageService, isProfi
  import { isUserDataProfile, IUserDataProfile } from '../../../../platform/userDataProfile/common/userDataProfile.js';
  import { IAnyWorkspaceIdentifier } from '../../../../platform/workspace/common/workspace.js';
