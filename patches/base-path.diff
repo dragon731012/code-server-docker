@@ -6,10 +6,10 @@ assumes everything is on / by default.
 
 To test this serve code-server behind a reverse proxy with a path like /code.
 
-Index: code-server/lib/vscode/src/vs/base/common/network.ts
+Index: code-server-docker/lib/vscode/src/vs/base/common/network.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/base/common/network.ts
-+++ code-server/lib/vscode/src/vs/base/common/network.ts
+--- code-server-docker.orig/lib/vscode/src/vs/base/common/network.ts
++++ code-server-docker/lib/vscode/src/vs/base/common/network.ts
 @@ -245,7 +245,9 @@ class RemoteAuthoritiesImpl {
  		return URI.from({
  			scheme: platform.isWeb ? this._preferredWebSchema : Schemas.vscodeRemoteResource,
@@ -21,10 +21,10 @@ Index: code-server/lib/vscode/src/vs/base/common/network.ts
  			query
  		});
  	}
-Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
+Index: code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
-+++ code-server/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
+--- code-server-docker.orig/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
++++ code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
 @@ -11,8 +11,8 @@
  		<meta name="mobile-web-app-capable" content="yes" />
  		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,10 +58,10 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
  		globalThis._VSCODE_FILE_ROOT = baseUrl + '/out/';
  	</script>
  	<script>
-Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.html
+Index: code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench.html
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/code/browser/workbench/workbench.html
-+++ code-server/lib/vscode/src/vs/code/browser/workbench/workbench.html
+--- code-server-docker.orig/lib/vscode/src/vs/code/browser/workbench/workbench.html
++++ code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench.html
 @@ -11,8 +11,8 @@
  		<meta name="mobile-web-app-capable" content="yes" />
  		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -95,10 +95,10 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.html
  		globalThis._VSCODE_FILE_ROOT = baseUrl + '/out/';
  	</script>
  	<script>
-Index: code-server/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
-+++ code-server/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
++++ code-server-docker/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
 @@ -282,6 +282,7 @@ export class BrowserSocketFactory implem
  	connect({ host, port }: WebSocketRemoteConnection, path: string, query: string, debugLabel: string): Promise<ISocket> {
  		return new Promise<ISocket>((resolve, reject) => {
@@ -107,10 +107,10 @@ Index: code-server/lib/vscode/src/vs/platform/remote/browser/browserSocketFactor
  			const socket = this._webSocketFactory.create(`${webSocketSchema}://${(/:/.test(host) && !/\[/.test(host)) ? `[${host}]` : host}:${port}${path}?${query}&skipWebSocketFrames=false`, debugLabel);
  			const disposables = new DisposableStore();
  			disposables.add(socket.onError(reject));
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 @@ -265,7 +265,9 @@ export class WebClientServer {
  		};
  
@@ -237,10 +237,10 @@ Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
 +export const getOriginalUrl = (req: http.IncomingMessage): string => {
 +	return (req as any).originalUrl || req.url
 +}
-Index: code-server/lib/vscode/src/vs/base/common/product.ts
+Index: code-server-docker/lib/vscode/src/vs/base/common/product.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/base/common/product.ts
-+++ code-server/lib/vscode/src/vs/base/common/product.ts
+--- code-server-docker.orig/lib/vscode/src/vs/base/common/product.ts
++++ code-server-docker/lib/vscode/src/vs/base/common/product.ts
 @@ -66,6 +66,7 @@ export type ExtensionVirtualWorkspaceSup
  
  export interface IProductConfiguration {
@@ -249,10 +249,10 @@ Index: code-server/lib/vscode/src/vs/base/common/product.ts
  
  	readonly version: string;
  	readonly date?: string;
-Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.ts
+Index: code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/code/browser/workbench/workbench.ts
-+++ code-server/lib/vscode/src/vs/code/browser/workbench/workbench.ts
+--- code-server-docker.orig/lib/vscode/src/vs/code/browser/workbench/workbench.ts
++++ code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench.ts
 @@ -339,7 +339,8 @@ class LocalStorageURLCallbackProvider ex
  			this.startListening();
  		}
@@ -292,10 +292,10 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.ts
  	const secretStorageCrypto = secretStorageKeyPath && ServerKeyedAESCrypto.supported()
  		? new ServerKeyedAESCrypto(secretStorageKeyPath) : new TransparentCrypto();
  
-Index: code-server/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
-+++ code-server/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
++++ code-server-docker/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
 @@ -120,7 +120,7 @@ export abstract class AbstractExtensionR
  					: version,
  				path: 'extension'
