@@ -8,10 +8,10 @@ package.json and delete the last notification storage item.
 3. Click "Clear site data"
 4. See update notification
 
-Index: code-server/lib/vscode/src/vs/workbench/browser/client.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/browser/client.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/browser/client.ts
-+++ code-server/lib/vscode/src/vs/workbench/browser/client.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/browser/client.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/browser/client.ts
 @@ -1,10 +1,16 @@
  import { Disposable } from "../../base/common/lifecycle.js";
  import { localize } from '../../nls.js';
@@ -89,10 +89,10 @@ Index: code-server/lib/vscode/src/vs/workbench/browser/client.ts
 +		updateLoop();
  	}
  }
-Index: code-server/lib/vscode/src/vs/base/common/product.ts
+Index: code-server-docker/lib/vscode/src/vs/base/common/product.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/base/common/product.ts
-+++ code-server/lib/vscode/src/vs/base/common/product.ts
+--- code-server-docker.orig/lib/vscode/src/vs/base/common/product.ts
++++ code-server-docker/lib/vscode/src/vs/base/common/product.ts
 @@ -86,6 +86,7 @@ export interface IAgentSdkProductConfig
  export interface IProductConfiguration {
  	readonly codeServerVersion?: string
@@ -109,10 +109,10 @@ Index: code-server/lib/vscode/src/vs/base/common/product.ts
  	};
  
  	readonly agentSdks?: { readonly [packageId: string]: IAgentSdkProductConfig };
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 @@ -360,6 +360,7 @@ export class WebClientServer {
  		const productConfiguration: Partial<Mutable<IProductConfiguration>> = {
  			codeServerVersion: this._productService.codeServerVersion,
@@ -121,10 +121,10 @@ Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
  			embedderIdentifier: 'server-distro',
  			extensionsGallery: this._productService.extensionsGallery,
  		};
-Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
-+++ code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 @@ -16,6 +16,8 @@ import { join } from '../../base/common/
  import { ProtocolConstants } from '../../base/parts/ipc/common/ipc.net.js';
  
