@@ -11,10 +11,10 @@ Prepare Code for integration with code-server
 6. Add our icons and remove the existing ones.
 7. Use our own manifest.
 
-Index: code-server/lib/vscode/src/vs/server/node/server.main.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/server.main.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/server.main.ts
-+++ code-server/lib/vscode/src/vs/server/node/server.main.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/server.main.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/server.main.ts
 @@ -12,7 +12,7 @@ import { createServer as doCreateServer,
  import { parseArgs, ErrorReporter } from '../../platform/environment/node/argv.js';
  import { join, dirname } from '../../base/common/path.js';
@@ -96,10 +96,10 @@ Index: code-server/lib/vscode/src/vs/server/node/server.main.ts
 +// The aliases prevent the names getting mangled during minification which would
 +// make it difficult to import.
 +export { spawnCli as spawnCli, createServer as createServer };
-Index: code-server/lib/vscode/src/vs/base/common/processes.ts
+Index: code-server-docker/lib/vscode/src/vs/base/common/processes.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/base/common/processes.ts
-+++ code-server/lib/vscode/src/vs/base/common/processes.ts
+--- code-server-docker.orig/lib/vscode/src/vs/base/common/processes.ts
++++ code-server-docker/lib/vscode/src/vs/base/common/processes.ts
 @@ -111,6 +111,8 @@ export function sanitizeProcessEnvironme
  		/^VSCODE_(?!(PORTABLE|SHELL_LOGIN|ENV_REPLACE|ENV_APPEND|ENV_PREPEND)).+$/,
  		/^SNAP(|_.*)$/,
@@ -109,10 +109,10 @@ Index: code-server/lib/vscode/src/vs/base/common/processes.ts
  	];
  	const envKeys = Object.keys(env);
  	envKeys
-Index: code-server/lib/vscode/src/vs/workbench/browser/client.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/browser/client.ts
 ===================================================================
 --- /dev/null
-+++ code-server/lib/vscode/src/vs/workbench/browser/client.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/browser/client.ts
 @@ -0,0 +1,46 @@
 +import { Disposable } from "../../base/common/lifecycle.js";
 +
@@ -160,10 +160,10 @@ Index: code-server/lib/vscode/src/vs/workbench/browser/client.ts
 +		}
 +	}
 +}
-Index: code-server/lib/vscode/src/vs/workbench/browser/web.main.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/browser/web.main.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/browser/web.main.ts
-+++ code-server/lib/vscode/src/vs/workbench/browser/web.main.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/browser/web.main.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/browser/web.main.ts
 @@ -64,6 +64,7 @@ import { IOpenerService } from '../../pl
  import { mixin, safeStringify } from '../../base/common/objects.js';
  import { IndexedDB } from '../../base/browser/indexedDB.js';
@@ -182,10 +182,10 @@ Index: code-server/lib/vscode/src/vs/workbench/browser/web.main.ts
  		// Window
  		this._register(instantiationService.createInstance(BrowserWindow));
  
-Index: code-server/lib/vscode/src/vs/base/common/product.ts
+Index: code-server-docker/lib/vscode/src/vs/base/common/product.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/base/common/product.ts
-+++ code-server/lib/vscode/src/vs/base/common/product.ts
+--- code-server-docker.orig/lib/vscode/src/vs/base/common/product.ts
++++ code-server-docker/lib/vscode/src/vs/base/common/product.ts
 @@ -84,6 +84,8 @@ export interface IAgentSdkProductConfig
  }
  
@@ -195,10 +195,10 @@ Index: code-server/lib/vscode/src/vs/base/common/product.ts
  	readonly version: string;
  	readonly date?: string;
  	readonly quality?: string;
-Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
+Index: code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
-+++ code-server/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
+--- code-server-docker.orig/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
++++ code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
 @@ -11,7 +11,8 @@
  		<meta name="mobile-web-app-capable" content="yes" />
  		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -221,10 +221,10 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
  		<style id="vscode-css-modules" type="text/css" media="screen"></style>
  
  	</head>
-Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.html
+Index: code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench.html
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/code/browser/workbench/workbench.html
-+++ code-server/lib/vscode/src/vs/code/browser/workbench/workbench.html
+--- code-server-docker.orig/lib/vscode/src/vs/code/browser/workbench/workbench.html
++++ code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench.html
 @@ -11,7 +11,8 @@
  		<meta name="mobile-web-app-capable" content="yes" />
  		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -247,10 +247,10 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.html
  		<link rel="stylesheet" href="{{WORKBENCH_WEB_BASE_URL}}/out/vs/code/browser/workbench/workbench.css">
  
  	</head>
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 @@ -353,6 +353,7 @@ export class WebClientServer {
  		} : undefined;
  
@@ -259,11 +259,11 @@ Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
  			embedderIdentifier: 'server-distro',
  			extensionsGallery: this._webExtensionResourceUrlTemplate && this._productService.extensionsGallery ? {
  				...this._productService.extensionsGallery,
-Index: code-server/lib/vscode/src/server-main.ts
+Index: code-server-docker/lib/vscode/src/server-main.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/server-main.ts
-+++ code-server/lib/vscode/src/server-main.ts
-@@ -22,6 +22,9 @@ import { IServerAPI } from './vs/server/
+--- code-server-docker.orig/lib/vscode/src/server-main.ts
++++ code-server-docker/lib/vscode/src/server-main.ts
+@@ -23,6 +23,9 @@ import { IServerAPI } from './vs/server/
  perf.mark('code/server/start');
  (globalThis as { vscodeServerStartTime?: number }).vscodeServerStartTime = performance.now();
  
@@ -273,7 +273,7 @@ Index: code-server/lib/vscode/src/server-main.ts
  // Do a quick parse to determine if a server or the cli needs to be started
  const parsedArgs = minimist(process.argv.slice(2), {
  	boolean: ['start-server', 'list-extensions', 'print-ip-address', 'help', 'version', 'accept-server-license-terms', 'update-extensions'],
-@@ -150,6 +153,7 @@ if (shouldSpawnCli) {
+@@ -153,6 +156,7 @@ if (shouldSpawnCli) {
  		}
  	});
  }
@@ -281,7 +281,7 @@ Index: code-server/lib/vscode/src/server-main.ts
  
  function sanitizeStringArg(val: unknown): string | undefined {
  	if (Array.isArray(val)) { // if an argument is passed multiple times, minimist creates an array
-@@ -283,3 +287,22 @@ function prompt(question: string): Promi
+@@ -406,3 +410,22 @@ function prompt(question: string): Promi
  		});
  	});
  }
@@ -304,10 +304,10 @@ Index: code-server/lib/vscode/src/server-main.ts
 +if (!process.env.CODE_SERVER_PARENT_PID) {
 +	start();
 +}
-Index: code-server/lib/vscode/src/vs/workbench/browser/parts/dialogs/dialog.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/browser/parts/dialogs/dialog.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/browser/parts/dialogs/dialog.ts
-+++ code-server/lib/vscode/src/vs/workbench/browser/parts/dialogs/dialog.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/browser/parts/dialogs/dialog.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/browser/parts/dialogs/dialog.ts
 @@ -47,8 +47,11 @@ export function createWorkbenchDialogOpt
  
  export function createBrowserAboutDialogDetails(productService: IProductService): { title: string; details: string; detailsToCopy: string } {
