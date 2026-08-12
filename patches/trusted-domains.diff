@@ -1,9 +1,9 @@
 Allow configuring trusted domains via product.json or flag.
 
-Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
-+++ code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 @@ -23,6 +23,7 @@ export const serverOptions: OptionDescri
  	'disable-file-uploads': { type: 'boolean' },
  	'disable-getting-started-override': { type: 'boolean' },
@@ -20,10 +20,10 @@ Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
  
  	/* ----- server setup ----- */
  
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 @@ -358,6 +358,14 @@ export class WebClientServer {
  			scopes: [['user:email'], ['repo']]
  		} : undefined;

@@ -8,10 +8,10 @@ VS Code's web bootstrap, so set `nameShort`/`nameLong` from the existing
 This keeps the patch minimal and makes browser tab titles honor `--app-name`
 without changing unrelated product metadata.
 
-Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
-+++ code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 @@ -24,6 +24,7 @@ export const serverOptions: OptionDescri
  	'disable-getting-started-override': { type: 'boolean' },
  	'locale': { type: 'string' },
@@ -28,10 +28,10 @@ Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
  
  	/* ----- server setup ----- */
  
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 @@ -366,8 +366,11 @@ export class WebClientServer {
  			linkProtectionTrustedDomains.push(...this._productService.linkProtectionTrustedDomains);
  		}
