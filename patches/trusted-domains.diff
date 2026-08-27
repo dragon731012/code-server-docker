@@ -1,9 +1,9 @@
 Allow configuring trusted domains via product.json or flag.
 
-Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
-+++ code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 @@ -23,6 +23,7 @@ export const serverOptions: OptionDescri
  	'disable-file-uploads': { type: 'boolean' },
  	'disable-getting-started-override': { type: 'boolean' },
@@ -20,11 +20,11 @@ Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
  
  	/* ----- server setup ----- */
  
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
-@@ -355,6 +355,14 @@ export class WebClientServer {
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
+@@ -354,6 +354,14 @@ export class WebClientServer {
  			scopes: [['user:email'], ['repo']]
  		} : undefined;
  
@@ -39,7 +39,7 @@ Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
  		const productConfiguration: Partial<Mutable<IProductConfiguration>> = {
  			codeServerVersion: this._productService.codeServerVersion,
  			rootEndpoint: rootBase,
-@@ -370,6 +378,7 @@ export class WebClientServer {
+@@ -369,6 +377,7 @@ export class WebClientServer {
  			embedderIdentifier: 'server-distro',
  			voiceWsUrl: this._productService.voiceWsUrl,
  			extensionsGallery: this._productService.extensionsGallery,
