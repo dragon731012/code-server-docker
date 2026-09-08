@@ -24,6 +24,7 @@ fix-bin-script() {
   # Fix Node path on Windows.
   sed -i.bak 's/^set ROOT_DIR=\(.*\)$/set ROOT_DIR=%~dp0..\\..\\..\\..\r\nset VSROOT_DIR=\1/g' "$script"
   sed -i.bak 's/%ROOT_DIR%\\out/%VSROOT_DIR%\\out/g' "$script"
+  sed -i.bak 's/%ROOT_DIR%\\node.exe/%ROOT_DIR%\\lib\\node.exe/g' "$script"
 
   chmod +x "$script"
   rm "$script.bak"
@@ -132,7 +133,7 @@ EOF
   # Set vars and fix paths.
   case $OS in
     windows)
-      fix-bin-script remote-cli/code.cmd
+      fix-bin-script remote-cli/code-server.cmd
       fix-bin-script helpers/browser.cmd
       ;;
     *)
