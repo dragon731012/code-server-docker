@@ -49,7 +49,10 @@ if [[ ! ${ARCH-} ]]; then
   export ARCH
 fi
 
-if [[ ! ${OS-} ]]; then
+# Windows predefines OS as Windows_NT for every process, so on a windows shell
+# the check below would always find a value and never call os(). That is not a
+# name this build knows, so it does not count as one the caller chose.
+if [[ ! ${OS-} || ${OS-} == "Windows_NT" ]]; then
   OS=$(os)
   export OS
 fi
