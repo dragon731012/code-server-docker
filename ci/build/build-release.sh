@@ -41,6 +41,11 @@ main() {
     rsync ./ci/build/code-server.sh "$RELEASE_PATH/bin/code-server"
     chmod 755 "$RELEASE_PATH/bin/code-server"
 
+    # Windows cannot run the shell launcher, so it gets one of its own.
+    if [ "$OS" = windows ]; then
+      rsync ./ci/build/code-server.cmd "$RELEASE_PATH/bin/code-server.cmd"
+    fi
+
     # Delete the extra bin scripts.
     rm "$RELEASE_PATH/lib/vscode/bin/remote-cli/code-darwin.sh"
     rm "$RELEASE_PATH/lib/vscode/bin/remote-cli/code-linux.sh"
