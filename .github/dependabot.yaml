@@ -9,8 +9,6 @@ updates:
     cooldown:
       default-days: 7
     labels: []
-    commit-message:
-      prefix: "chore"
 
   - package-ecosystem: "npm"
     directory: "/"
