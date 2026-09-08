@@ -5,6 +5,7 @@ import {
   UserProvidedArgs,
   bindAddrFromArgs,
   defaultConfigFile,
+  defaultSessionSocket,
   parse,
   parseConfigFile,
   setDefaults,
@@ -37,7 +38,7 @@ const defaults = {
   usingEnvHashedPassword: false,
   "extensions-dir": path.join(paths.data, "extensions"),
   "user-data-dir": paths.data,
-  "session-socket": path.join(paths.data, "code-server-ipc.sock"),
+  "session-socket": defaultSessionSocket(paths.data),
   "app-name": "code-server",
   _: [],
 }
@@ -974,6 +975,26 @@ describe("bindAddrFromArgs", () => {
 
     expect(actual).toStrictEqual(expected)
     resetValue()
+  })
+})
+
+describe("defaultSessionSocket", () => {
+  const dataDir = path.join("/home/coder/.local/share", "code-server")
+
+  it("should put the socket in the user data directory", () => {
+    expect(defaultSessionSocket(dataDir, "linux")).toBe(path.join(dataDir, "code-server-ipc.sock"))
+  })
+
+  it("should use a named pipe on windows", () => {
+    expect(defaultSessionSocket(dataDir, "win32")).toMatch(/^\\\\\.\\pipe\\code-server-ipc-[0-9a-f]{16}$/)
+  })
+
+  it("should give separate data directories separate pipes", () => {
+    expect(defaultSessionSocket(dataDir, "win32")).not.toBe(defaultSessionSocket(dataDir + "-other", "win32"))
+  })
+
+  it("should give one data directory one pipe however it is spelled", () => {
+    expect(defaultSessionSocket(dataDir.toUpperCase(), "win32")).toBe(defaultSessionSocket(dataDir, "win32"))
   })
 })
 
