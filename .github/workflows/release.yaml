@@ -196,3 +196,152 @@ jobs:
           files: ./release-packages/*
           tag_name: v${{ env.VERSION }}
           name: v${{ env.VERSION }}
+
+  package-windows:
+    name: win32-x64
+    runs-on: windows-2022
+    if: >-
+      (github.event_name == 'workflow_dispatch') ||
+      (github.event_name == 'pull_request_target' && github.event.pull_request.merged == true && startsWith(github.head_ref, 'update/'))
+
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      VSCODE_TARGET: win32-x64
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TAG: ${{ inputs.version || github.event.pull_request.head.ref || github.ref_name }}
+      # Ensure native modules are built from source to avoid prebuilds.
+      npm_config_build_from_source: true
+      OS: windows
+
+    steps:
+      # Git rewrites line endings on windows by default, which turns every
+      # shell script the build is made of into one bash cannot read, and
+      # every name in patches/series into one with a stray return.
+      - name: Keep line endings as they are in the repository
+        run: git config --global core.autocrlf false
+
+      - name: Strip update/ and v from tag and set major version
+        run: |
+          version=${TAG#update/}
+          version=${version#v}
+          version=4${version:1}
+          echo "VERSION=$version" >> $GITHUB_ENV
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+        with:
+          submodules: true
+
+      # quilt has no windows build. The patches are ordinary -p1 diffs
+      # against the repository root, so git applies them in series order.
+      - name: Apply patches
+        run: |
+          while read -r patch; do
+            case "$patch" in '' | '#'*) continue ;; esac
+            echo "applying $patch"
+            git apply --whitespace=nowarn "patches/$patch"
+          done < patches/series
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v6
+        with:
+          node-version-file: .node-version
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            test/package-lock.json
+
+      # npm hands every script it runs to cmd, which cannot run the shell
+      # scripts this repository is built out of. Point it at the same bash
+      # the steps here use rather than at a path, which moves between
+      # images.
+      - name: Let npm run shell scripts
+        run: echo "npm_config_script_shell=$(cygpath -w "$(command -v bash)")" >> $GITHUB_ENV
+
+      # The build merges json by handing jq a process substitution, which
+      # bash presents as a file under /dev/fd. The jq on this image is a
+      # windows program and cannot open those, so it reads the second input
+      # as nothing and the merge fails. Both the product and the package
+      # merge go through here.
+      - name: Let jq read what bash hands it
+        run: |
+          mkdir -p "$RUNNER_TEMP/shim"
+          cat > "$RUNNER_TEMP/shim/jq" <<'SHIM'
+          #!/usr/bin/env bash
+          set -euo pipefail
+          args=()
+          for arg in "$@"; do
+            case $arg in
+              /dev/fd/* | /proc/*/fd/*)
+                copy=$(mktemp)
+                cat "$arg" > "$copy"
+                args+=("$copy")
+                ;;
+              *) args+=("$arg") ;;
+            esac
+          done
+          exec jq.exe "${args[@]}"
+          SHIM
+          chmod +x "$RUNNER_TEMP/shim/jq"
+          echo "$RUNNER_TEMP/shim" >> $GITHUB_PATH
+
+      # Stamping version details into the native binaries clears any
+      # signature they arrived with and asks signtool whether there is one.
+      # That only reads and removes, so it wants no certificate and signs
+      # nothing. It just has to be findable, and the sdk carrying it is not
+      # on the path.
+      - name: Put signtool on the path
+        run: |
+          sdk=$(ls -d "/c/Program Files (x86)/Windows Kits/10/bin"/*/x64 | sort -V | tail -1)
+          test -x "$sdk/signtool.exe"
+          cygpath -w "$sdk" >> $GITHUB_PATH
+
+      # build-release.sh copies the tree with rsync, which neither windows
+      # nor the git bash on this image has. MSYS2 is already here, just not
+      # on the path.
+      - name: Install rsync
+        shell: cmd
+        run: C:\msys64\usr\bin\pacman -Sy --noconfirm --needed rsync
+
+      # Only rsync crosses over. Putting msys2's /usr/bin in front instead
+      # breaks the release step: npm on the path is a shell script whose
+      # shebang reads /usr/bin/env bash, so with msys2 first it is msys2's
+      # bash that runs it, and crossing into a second msys runtime does not
+      # carry the environment. npm then sees no script-shell and falls back
+      # to cmd, which cannot run ./ci/build/build-release.sh, and
+      # KEEP_MODULES is dropped on the way. A forwarder avoids the whole
+      # class: rsync is a native exe that loads its runtime from beside
+      # itself, and nothing else on the path moves.
+      - name: Reach rsync without moving the path
+        run: |
+          cat > "$RUNNER_TEMP/shim/rsync" <<'SHIM'
+          #!/usr/bin/env bash
+          exec /c/msys64/usr/bin/rsync.exe "$@"
+          SHIM
+          chmod +x "$RUNNER_TEMP/shim/rsync"
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm run build:vscode
+      - run: KEEP_MODULES=1 npm run release
+
+      # Of the two tars on this image it is git bash's GNU one that can
+      # rename the tree's top directory as it archives; the windows bsdtar
+      # is built without substitution support. Asserted rather than
+      # assumed, since the two are interchangeable everywhere except here.
+      - name: Package
+        run: |
+          case "$(tar --version | head -1)" in
+            *GNU*) ;;
+            *) echo "expected GNU tar for --transform, got $(tar --version | head -1)" >&2; exit 1 ;;
+          esac
+          npm run package
+
+      - uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
+        with:
+          draft: true
+          discussion_category_name: "📣 Announcements"
+          files: ./release-packages/*
+          tag_name: v${{ env.VERSION }}
+          name: v${{ env.VERSION }}
