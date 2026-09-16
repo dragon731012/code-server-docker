@@ -11,10 +11,10 @@ It should open in your existing code-server instance.
 
 When the extension host is terminated, the socket is unregistered.
 
-Index: code-server/lib/vscode/src/vs/workbench/api/node/extHostExtensionService.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/api/node/extHostExtensionService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/api/node/extHostExtensionService.ts
-+++ code-server/lib/vscode/src/vs/workbench/api/node/extHostExtensionService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/api/node/extHostExtensionService.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/api/node/extHostExtensionService.ts
 @@ -3,6 +3,7 @@
   *  Licensed under the MIT License. See License.txt in the project root for license information.
   *--------------------------------------------------------------------------------------------*/
@@ -84,10 +84,10 @@ Index: code-server/lib/vscode/src/vs/workbench/api/node/extHostExtensionService.
  		// Do this when extension service exists, but extensions are not being activated yet.
  		const configProvider = await this._extHostConfiguration.getConfigProvider();
  		await connectProxyResolver(this._extHostWorkspace, configProvider, this, this._logService, this._mainThreadTelemetryProxy, this._initData, this._store);
-Index: code-server/lib/vscode/src/vs/workbench/api/node/extensionHostProcess.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/api/node/extensionHostProcess.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/api/node/extensionHostProcess.ts
-+++ code-server/lib/vscode/src/vs/workbench/api/node/extensionHostProcess.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/api/node/extensionHostProcess.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/api/node/extensionHostProcess.ts
 @@ -3,6 +3,7 @@
   *  Licensed under the MIT License. See License.txt in the project root for license information.
   *--------------------------------------------------------------------------------------------*/
