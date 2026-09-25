@@ -1,7 +1,7 @@
-Index: code-server/lib/vscode/src/vs/workbench/contrib/webview/browser/pre/index.html
+Index: code-server-docker/lib/vscode/src/vs/workbench/contrib/webview/browser/pre/index.html
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/contrib/webview/browser/pre/index.html
-+++ code-server/lib/vscode/src/vs/workbench/contrib/webview/browser/pre/index.html
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/contrib/webview/browser/pre/index.html
++++ code-server-docker/lib/vscode/src/vs/workbench/contrib/webview/browser/pre/index.html
 @@ -5,7 +5,7 @@
  	<meta charset="UTF-8">
  
@@ -11,10 +11,10 @@ Index: code-server/lib/vscode/src/vs/workbench/contrib/webview/browser/pre/index
  
  	<!-- Disable pinch zooming -->
  	<meta name="viewport"
-Index: code-server/lib/vscode/src/vs/workbench/services/extensions/worker/webWorkerExtensionHostIframe.html
+Index: code-server-docker/lib/vscode/src/vs/workbench/services/extensions/worker/webWorkerExtensionHostIframe.html
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/services/extensions/worker/webWorkerExtensionHostIframe.html
-+++ code-server/lib/vscode/src/vs/workbench/services/extensions/worker/webWorkerExtensionHostIframe.html
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/services/extensions/worker/webWorkerExtensionHostIframe.html
++++ code-server-docker/lib/vscode/src/vs/workbench/services/extensions/worker/webWorkerExtensionHostIframe.html
 @@ -4,7 +4,7 @@
  		<meta http-equiv="Content-Security-Policy" content="
  			default-src 'none';
