@@ -13,10 +13,10 @@ To test:
 The file or directory should only open from the instance attached to that
 terminal.
 
-Index: code-server/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
-+++ code-server/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
 @@ -108,10 +108,14 @@ class RemoteTerminalBackend extends Base
  			}
  			const reqId = e.reqId;

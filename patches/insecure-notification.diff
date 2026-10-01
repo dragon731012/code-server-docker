@@ -12,10 +12,10 @@ localhost). For example:
 3. access via HTTP
 4. look for notification in bottom right
 
-Index: code-server/lib/vscode/src/vs/workbench/browser/client.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/browser/client.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/browser/client.ts
-+++ code-server/lib/vscode/src/vs/workbench/browser/client.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/browser/client.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/browser/client.ts
 @@ -1,7 +1,10 @@
  import { Disposable } from "../../base/common/lifecycle.js";
 +import { localize } from '../../nls.js';

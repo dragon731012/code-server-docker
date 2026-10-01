@@ -1,7 +1,7 @@
-Index: code-server/lib/vscode/build/gulpfile.extensions.ts
+Index: code-server-docker/lib/vscode/build/gulpfile.extensions.ts
 ===================================================================
---- code-server.orig/lib/vscode/build/gulpfile.extensions.ts
-+++ code-server/lib/vscode/build/gulpfile.extensions.ts
+--- code-server-docker.orig/lib/vscode/build/gulpfile.extensions.ts
++++ code-server-docker/lib/vscode/build/gulpfile.extensions.ts
 @@ -291,6 +291,29 @@ export const compileCopilotExtensionBuil
  task.task(compileCopilotExtensionBuildTask);
  
@@ -32,10 +32,10 @@ Index: code-server/lib/vscode/build/gulpfile.extensions.ts
   * Compiles the extensions for the build.
   * This is essentially a helper task that combines {@link cleanExtensionsBuildTask}, {@link compileNonNativeExtensionsBuildTask} and {@link compileNativeExtensionsBuildTask}
   */
-Index: code-server/lib/vscode/build/lib/extensions.ts
+Index: code-server-docker/lib/vscode/build/lib/extensions.ts
 ===================================================================
---- code-server.orig/lib/vscode/build/lib/extensions.ts
-+++ code-server/lib/vscode/build/lib/extensions.ts
+--- code-server-docker.orig/lib/vscode/build/lib/extensions.ts
++++ code-server-docker/lib/vscode/build/lib/extensions.ts
 @@ -21,6 +21,7 @@ import { getProductionDependencies } fro
  import { type IExtensionDefinition, getExtensionStream } from './builtInExtensions.ts';
  import { fetchUrls, fetchGithub } from './fetch.ts';
