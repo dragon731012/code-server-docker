@@ -5,10 +5,10 @@ downloading language packs from a URL configured in the product.json. This patch
 supports language pack extensions and uses files on the remote to set the
 language instead, so it works like the desktop version.
 
-Index: code-server/lib/vscode/src/vs/server/node/serverServices.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/serverServices.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/serverServices.ts
-+++ code-server/lib/vscode/src/vs/server/node/serverServices.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/serverServices.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/serverServices.ts
 @@ -13,7 +13,7 @@ import { IURITransformer } from '../../b
  import { generateUuid } from '../../base/common/uuid.js';
  import { getMachineId, getSqmMachineId, getDevDeviceId } from '../../base/node/id.js';
@@ -28,10 +28,10 @@ Index: code-server/lib/vscode/src/vs/server/node/serverServices.ts
  		// clean up extensions folder
  		remoteExtensionsScanner.whenExtensionsReady().then(() => extensionManagementService.cleanUp());
  
-Index: code-server/lib/vscode/src/vs/platform/environment/common/environmentService.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/environment/common/environmentService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/environment/common/environmentService.ts
-+++ code-server/lib/vscode/src/vs/platform/environment/common/environmentService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/environment/common/environmentService.ts
++++ code-server-docker/lib/vscode/src/vs/platform/environment/common/environmentService.ts
 @@ -98,7 +98,7 @@ export abstract class AbstractNativeEnvi
  			return URI.file(join(vscodePortable, 'argv.json'));
  		}
@@ -41,10 +41,10 @@ Index: code-server/lib/vscode/src/vs/platform/environment/common/environmentServ
  	}
  
  	@memoize
-Index: code-server/lib/vscode/src/vs/server/node/remoteLanguagePacks.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/remoteLanguagePacks.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/remoteLanguagePacks.ts
-+++ code-server/lib/vscode/src/vs/server/node/remoteLanguagePacks.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/remoteLanguagePacks.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/remoteLanguagePacks.ts
 @@ -3,6 +3,8 @@
   *  Licensed under the MIT License. See License.txt in the project root for license information.
   *--------------------------------------------------------------------------------------------*/
@@ -149,10 +149,10 @@ Index: code-server/lib/vscode/src/vs/server/node/remoteLanguagePacks.ts
 +
 +	return nlsFile;
 +}
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 @@ -24,6 +24,7 @@ import { URI } from '../../base/common/u
  import { streamToBuffer } from '../../base/common/buffer.js';
  import { IProductConfiguration } from '../../base/common/product.js';
@@ -186,10 +186,10 @@ Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
  		}
  
  		const scriptNonce = createScriptNonce();
-Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
-+++ code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
 @@ -38,6 +38,7 @@ export const serverOptions: OptionDescri
  	'disable-file-downloads': { type: 'boolean' },
  	'disable-file-uploads': { type: 'boolean' },
@@ -206,10 +206,10 @@ Index: code-server/lib/vscode/src/vs/server/node/serverEnvironmentService.ts
  
  	/* ----- server setup ----- */
  
-Index: code-server/lib/vscode/src/vs/platform/languagePacks/browser/languagePacks.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/languagePacks/browser/languagePacks.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/languagePacks/browser/languagePacks.ts
-+++ code-server/lib/vscode/src/vs/platform/languagePacks/browser/languagePacks.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/languagePacks/browser/languagePacks.ts
++++ code-server-docker/lib/vscode/src/vs/platform/languagePacks/browser/languagePacks.ts
 @@ -5,18 +5,24 @@
  
  import { CancellationTokenSource } from '../../../base/common/cancellation.js';
@@ -244,10 +244,10 @@ Index: code-server/lib/vscode/src/vs/platform/languagePacks/browser/languagePack
 +		return this.languagePackService.getInstalledLanguages()
  	}
  }
-Index: code-server/lib/vscode/src/vs/workbench/services/localization/electron-browser/localeService.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/services/localization/electron-browser/localeService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/services/localization/electron-browser/localeService.ts
-+++ code-server/lib/vscode/src/vs/workbench/services/localization/electron-browser/localeService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/services/localization/electron-browser/localeService.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/services/localization/electron-browser/localeService.ts
 @@ -51,7 +51,8 @@ class NativeLocaleService implements ILo
  		@IProductService private readonly productService: IProductService
  	) { }
@@ -268,11 +268,11 @@ Index: code-server/lib/vscode/src/vs/workbench/services/localization/electron-br
  		await this.jsonEditingService.write(this.environmentService.argvResource, [{ path: ['locale'], value: locale }], true);
  		return true;
  	}
-Index: code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extensionsActions.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/contrib/extensions/browser/extensionsActions.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/contrib/extensions/browser/extensionsActions.ts
-+++ code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extensionsActions.ts
-@@ -475,9 +475,6 @@ export class InstallAction extends Exten
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/contrib/extensions/browser/extensionsActions.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/contrib/extensions/browser/extensionsActions.ts
+@@ -479,9 +479,6 @@ export class InstallAction extends Exten
  		if (this.extension.isBuiltin) {
  			return;
  		}
@@ -282,7 +282,7 @@ Index: code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extens
  		if (this.extension.state !== ExtensionState.Uninstalled) {
  			return;
  		}
-@@ -782,7 +779,7 @@ export abstract class InstallInOtherServ
+@@ -786,7 +783,7 @@ export abstract class InstallInOtherServ
  		}
  
  		if (isLanguagePackExtension(this.extension.local.manifest)) {
@@ -291,7 +291,7 @@ Index: code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extens
  		}
  
  		// Prefers to run on UI
-@@ -2281,17 +2278,6 @@ export class SetLanguageAction extends E
+@@ -2285,17 +2282,6 @@ export class SetLanguageAction extends E
  	update(): void {
  		this.enabled = false;
  		this.class = SetLanguageAction.DisabledClass;
@@ -309,7 +309,7 @@ Index: code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extens
  	}
  
  	override async run(): Promise<any> {
-@@ -2308,7 +2294,6 @@ export class ClearLanguageAction extends
+@@ -2312,7 +2298,6 @@ export class ClearLanguageAction extends
  	private static readonly DisabledClass = `${this.EnabledClass} disabled`;
  
  	constructor(
@@ -317,7 +317,7 @@ Index: code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extens
  		@ILocaleService private readonly localeService: ILocaleService,
  	) {
  		super(ClearLanguageAction.ID, ClearLanguageAction.TITLE.value, ClearLanguageAction.DisabledClass, false);
-@@ -2318,17 +2303,6 @@ export class ClearLanguageAction extends
+@@ -2322,17 +2307,6 @@ export class ClearLanguageAction extends
  	update(): void {
  		this.enabled = false;
  		this.class = ClearLanguageAction.DisabledClass;
@@ -335,10 +335,10 @@ Index: code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extens
  	}
  
  	override async run(): Promise<any> {
-Index: code-server/lib/vscode/src/vs/workbench/workbench.web.main.ts
+Index: code-server-docker/lib/vscode/src/vs/workbench/workbench.web.main.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/workbench/workbench.web.main.ts
-+++ code-server/lib/vscode/src/vs/workbench/workbench.web.main.ts
+--- code-server-docker.orig/lib/vscode/src/vs/workbench/workbench.web.main.ts
++++ code-server-docker/lib/vscode/src/vs/workbench/workbench.web.main.ts
 @@ -55,7 +55,7 @@ import './services/host/browser/browserH
  import '../platform/meteredConnection/browser/meteredConnectionService.js';
  import './services/lifecycle/browser/lifecycleService.js';
