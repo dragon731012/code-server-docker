@@ -2,10 +2,10 @@ Disable signature verification.
 
 Extension signature verification is now mandatory for all platforms and needs to be disabled.
 
-Index: code-server/lib/vscode/src/vs/platform/extensionManagement/node/extensionManagementService.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/extensionManagement/node/extensionManagementService.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/extensionManagement/node/extensionManagementService.ts
-+++ code-server/lib/vscode/src/vs/platform/extensionManagement/node/extensionManagementService.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/extensionManagement/node/extensionManagementService.ts
++++ code-server-docker/lib/vscode/src/vs/platform/extensionManagement/node/extensionManagementService.ts
 @@ -34,6 +34,7 @@ import {
  	ExtensionSignatureVerificationCode,
  	computeSize,
