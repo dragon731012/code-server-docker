@@ -6,11 +6,11 @@ assumes everything is on / by default.
 
 To test this serve code-server behind a reverse proxy with a path like /code.
 
-Index: code-server/lib/vscode/src/vs/base/common/network.ts
+Index: code-server-docker/lib/vscode/src/vs/base/common/network.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/base/common/network.ts
-+++ code-server/lib/vscode/src/vs/base/common/network.ts
-@@ -251,7 +251,9 @@ class RemoteAuthoritiesImpl {
+--- code-server-docker.orig/lib/vscode/src/vs/base/common/network.ts
++++ code-server-docker/lib/vscode/src/vs/base/common/network.ts
+@@ -256,7 +256,9 @@ class RemoteAuthoritiesImpl {
  		return URI.from({
  			scheme: platform.isWeb ? this._preferredWebSchema : Schemas.vscodeRemoteResource,
  			authority: `${host}:${port}`,
@@ -21,10 +21,10 @@ Index: code-server/lib/vscode/src/vs/base/common/network.ts
  			query
  		});
  	}
-Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
+Index: code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
-+++ code-server/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
+--- code-server-docker.orig/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
++++ code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
 @@ -11,8 +11,8 @@
  		<meta name="mobile-web-app-capable" content="yes" />
  		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -48,8 +48,8 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
 +		<link rel="manifest" href="{{VS_BASE}}/manifest.json" crossorigin="use-credentials" />
  		<style id="vscode-css-modules" type="text/css" media="screen"></style>
  
- 	</head>
-@@ -41,7 +41,7 @@
+ 		<!-- Startup fallback: shown only if the scripts below never run, e.g. because a proxy,
+@@ -92,7 +92,7 @@
  
  	<!-- Startup (do not modify order of script tags!) -->
  	<script nonce="{{WORKBENCH_SCRIPT_NONCE}}">
@@ -58,10 +58,10 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench-dev.html
  		globalThis._VSCODE_FILE_ROOT = baseUrl + '/out/';
  	</script>
  	<script nonce="{{WORKBENCH_SCRIPT_NONCE}}">
-Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.html
+Index: code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench.html
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/code/browser/workbench/workbench.html
-+++ code-server/lib/vscode/src/vs/code/browser/workbench/workbench.html
+--- code-server-docker.orig/lib/vscode/src/vs/code/browser/workbench/workbench.html
++++ code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench.html
 @@ -11,8 +11,8 @@
  		<meta name="mobile-web-app-capable" content="yes" />
  		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -85,8 +85,8 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.html
 +		<link rel="manifest" href="{{VS_BASE}}/manifest.json" crossorigin="use-credentials" />
  		<link rel="stylesheet" href="{{WORKBENCH_WEB_BASE_URL}}/out/vs/code/browser/workbench/workbench.css">
  
- 	</head>
-@@ -37,7 +37,7 @@
+ 		<!-- Startup fallback: shown only if the scripts below never run, e.g. because a proxy,
+@@ -88,7 +88,7 @@
  
  	<!-- Startup (do not modify order of script tags!) -->
  	<script nonce="{{WORKBENCH_SCRIPT_NONCE}}">
@@ -95,10 +95,10 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.html
  		globalThis._VSCODE_FILE_ROOT = baseUrl + '/out/';
  	</script>
  	<script nonce="{{WORKBENCH_SCRIPT_NONCE}}">
-Index: code-server/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
-+++ code-server/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
++++ code-server-docker/lib/vscode/src/vs/platform/remote/browser/browserSocketFactory.ts
 @@ -282,6 +282,7 @@ export class BrowserSocketFactory implem
  	connect({ host, port }: WebSocketRemoteConnection, path: string, query: string, debugLabel: string): Promise<ISocket> {
  		return new Promise<ISocket>((resolve, reject) => {
@@ -107,10 +107,10 @@ Index: code-server/lib/vscode/src/vs/platform/remote/browser/browserSocketFactor
  			const socket = this._webSocketFactory.create(`${webSocketSchema}://${(/:/.test(host) && !/\[/.test(host)) ? `[${host}]` : host}:${port}${path}?${query}&skipWebSocketFrames=false`, debugLabel);
  			const disposables = new DisposableStore();
  			disposables.add(socket.onError(reject));
-Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+Index: code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/server/node/webClientServer.ts
-+++ code-server/lib/vscode/src/vs/server/node/webClientServer.ts
+--- code-server-docker.orig/lib/vscode/src/vs/server/node/webClientServer.ts
++++ code-server-docker/lib/vscode/src/vs/server/node/webClientServer.ts
 @@ -146,7 +146,7 @@ export function createWorkbenchContentSe
  		'default-src \'self\';',
  		'img-src \'self\' https: data: blob:;',
@@ -238,10 +238,10 @@ Index: code-server/lib/vscode/src/vs/server/node/webClientServer.ts
 +export const getOriginalUrl = (req: http.IncomingMessage): string => {
 +	return (req as any).originalUrl || req.url
 +}
-Index: code-server/lib/vscode/src/vs/base/common/product.ts
+Index: code-server-docker/lib/vscode/src/vs/base/common/product.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/base/common/product.ts
-+++ code-server/lib/vscode/src/vs/base/common/product.ts
+--- code-server-docker.orig/lib/vscode/src/vs/base/common/product.ts
++++ code-server-docker/lib/vscode/src/vs/base/common/product.ts
 @@ -98,6 +98,7 @@ export interface IDictationRuntimeProduc
  
  export interface IProductConfiguration {
@@ -250,10 +250,10 @@ Index: code-server/lib/vscode/src/vs/base/common/product.ts
  
  	readonly version: string;
  	readonly date?: string;
-Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.ts
+Index: code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/code/browser/workbench/workbench.ts
-+++ code-server/lib/vscode/src/vs/code/browser/workbench/workbench.ts
+--- code-server-docker.orig/lib/vscode/src/vs/code/browser/workbench/workbench.ts
++++ code-server-docker/lib/vscode/src/vs/code/browser/workbench/workbench.ts
 @@ -339,7 +339,8 @@ class LocalStorageURLCallbackProvider ex
  			this.startListening();
  		}
@@ -281,8 +281,8 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.ts
 -
  (function () {
  
- 	// Find config by checking for DOM
-@@ -610,8 +600,8 @@ function readCookie(name: string): strin
+ 	// This script running at all means the page scripts were not blocked or rewritten.
+@@ -614,8 +604,8 @@ function readCookie(name: string): strin
  	if (!configElement || !configElementAttribute) {
  		throw new Error('Missing web configuration element');
  	}
@@ -293,10 +293,10 @@ Index: code-server/lib/vscode/src/vs/code/browser/workbench/workbench.ts
  	const secretStorageCrypto = secretStorageKeyPath && ServerKeyedAESCrypto.supported()
  		? new ServerKeyedAESCrypto(secretStorageKeyPath) : new TransparentCrypto();
  
-Index: code-server/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
+Index: code-server-docker/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
-+++ code-server/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
+--- code-server-docker.orig/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
++++ code-server-docker/lib/vscode/src/vs/platform/extensionResourceLoader/common/extensionResourceLoader.ts
 @@ -120,7 +120,7 @@ export abstract class AbstractExtensionR
  					: version,
  				path: 'extension'
